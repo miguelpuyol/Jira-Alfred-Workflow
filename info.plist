@@ -195,7 +195,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>jirasetup</string>
+				<string>setupjira</string>
 				<key>queuedelaycustom</key>
 				<integer>5</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -247,7 +247,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>jiraserver</string>
+				<string>setupjiraserver</string>
 				<key>text</key>
 				<string>Set Jira Server</string>
 				<key>withspace</key>
@@ -285,7 +285,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>jirauser</string>
+				<string>setupjirauser</string>
 				<key>text</key>
 				<string>Set Jira User</string>
 				<key>withspace</key>
@@ -323,7 +323,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>jirakeychain</string>
+				<string>setupjirakeychain</string>
 				<key>subtext</key>
 				<string>Indicate where your jira password is stored</string>
 				<key>text</key>
@@ -363,7 +363,7 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>jirasprintboard</string>
+				<string>setupjirasprintboard</string>
 				<key>text</key>
 				<string>Set Jira Sprint Board Id</string>
 				<key>withspace</key>
