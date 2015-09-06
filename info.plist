@@ -157,7 +157,7 @@
 				<key>script</key>
 				<string>python jira.py {query}</string>
 				<key>title</key>
-				<string>List Jira Items</string>
+				<string>List Jira Stories</string>
 				<key>type</key>
 				<integer>0</integer>
 				<key>withspace</key>
