@@ -8,6 +8,10 @@ Install jira-python package
 $ pip install jira
 ```
 
+# Download
+
+Download the workflow file [Jira Task Manager](Jira%20Task%20Manager.alfredworkflow)
+
 # Usage
 
 Type `jira` on Alfred to list the 
