@@ -20,3 +20,4 @@ Type `jira` on Alfred to list the
 | `setupjirauser`        | Set the jira username          |
 | `setupjirakeychain`    | Set the Apple Keychain service where your JIRA password is stored |
 | `setupjirasprintboard` | Set the Greenhopper Board Id |
+| `setupjiratest`        | Test the connection|

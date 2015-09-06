@@ -84,13 +84,13 @@
 		</array>
 	</dict>
 	<key>createdby</key>
-	<string>Miguel</string>
+	<string>Miguel Garcia Puyol</string>
 	<key>description</key>
-	<string></string>
+	<string>A Jira Task Manager for Alfred</string>
 	<key>disabled</key>
 	<false/>
 	<key>name</key>
-	<string>Jira Manager</string>
+	<string>Jira Task Manager</string>
 	<key>objects</key>
 	<array>
 		<dict>
@@ -195,7 +195,7 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>keyword</key>
-				<string>setupjira</string>
+				<string>setupjiratest</string>
 				<key>queuedelaycustom</key>
 				<integer>5</integer>
 				<key>queuedelayimmediatelyinitially</key>
@@ -448,6 +448,6 @@
 		</dict>
 	</dict>
 	<key>webaddress</key>
-	<string></string>
+	<string>https://github.com/miguelpuyol/Jira-Alfred-Workflow</string>
 </dict>
 </plist>
