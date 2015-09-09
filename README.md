@@ -29,20 +29,23 @@ Type `jira` on Alfred to list the
 
 # TODO
 
-## v1.1
+## v0.2
 - [x] List the sprints
 - [x] Show menu with story data
 - [x] List subtasks of a given story
 - [x] Show the assigned person
 
-## Roadman
-- [ ] List comments of a given story / subtask
+## v0.3
+- [x] List comments of a given story / subtask
+- [x] Filter the listed stories
+- [x] Search by name
+- [x] Search by Key
+
+## Roadmap
 - [ ] Provide screenshots of the usage
-- [ ] Filter the listed stories
+- [ ] Cache jira issues and avoid hammering JIRA
 - [ ] Select the Board from Alfred and not with an ID
 - [ ] Refactor the setup method to avoid code duplication
 - [ ] Add a comment to a story/subtask
 - [ ] Create a story
 - [ ] Create a subtask 
-- [ ] Search by name
-- [ ] Search by Key

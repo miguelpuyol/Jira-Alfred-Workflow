@@ -19,8 +19,6 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>08B651DF-8091-4007-9BC9-77FB79F54FC3</key>
-		<array/>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<array>
 			<dict>
@@ -411,55 +409,15 @@
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>jira2</string>
-				<key>queuedelaycustom</key>
-				<integer>3</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<false/>
-				<key>queuedelaymode</key>
-				<integer>2</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>Please wait...</string>
-				<key>script</key>
-				<string>python jira2.py {query}</string>
-				<key>title</key>
-				<string>List Jira Stories</string>
-				<key>type</key>
-				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
-			<key>uid</key>
-			<string>08B651DF-8091-4007-9BC9-77FB79F54FC3</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 	</array>
 	<key>readme</key>
-	<string>new version</string>
+	<string>v0.3</string>
 	<key>uidata</key>
 	<dict>
 		<key>0589B57D-2DD0-4C4D-B241-8BECD211D844</key>
 		<dict>
 			<key>ypos</key>
 			<real>340</real>
-		</dict>
-		<key>08B651DF-8091-4007-9BC9-77FB79F54FC3</key>
-		<dict>
-			<key>ypos</key>
-			<real>870</real>
 		</dict>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<dict>
