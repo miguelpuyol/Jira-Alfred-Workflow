@@ -19,6 +19,8 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>08B651DF-8091-4007-9BC9-77FB79F54FC3</key>
+		<array/>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<array>
 			<dict>
@@ -27,13 +29,21 @@
 				<key>modifiers</key>
 				<integer>524288</integer>
 				<key>modifiersubtext</key>
-				<string></string>
+				<string>Copy to the clipboard</string>
 			</dict>
 			<dict>
 				<key>destinationuid</key>
 				<string>4DFCBBB3-5826-4D36-87F4-F1DA25C798E4</string>
 				<key>modifiers</key>
 				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>D8B6EE55-6731-4F28-90DF-4F159327886C</string>
+				<key>modifiers</key>
+				<integer>524288</integer>
 				<key>modifiersubtext</key>
 				<string></string>
 			</dict>
@@ -93,21 +103,6 @@
 	<string>Jira Task Manager</string>
 	<key>objects</key>
 	<array>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>autopaste</key>
-				<true/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
-			<key>uid</key>
-			<string>BA15956B-1364-425F-9AA4-34F8A6ECA094</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
 		<dict>
 			<key>config</key>
 			<dict>
@@ -173,6 +168,21 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.clipboard</string>
+			<key>uid</key>
+			<string>BA15956B-1364-425F-9AA4-34F8A6ECA094</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>plusspaces</key>
 				<false/>
 				<key>url</key>
@@ -190,35 +200,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>argumenttype</key>
-				<integer>1</integer>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>keyword</key>
-				<string>setupjiratest</string>
-				<key>queuedelaycustom</key>
-				<integer>5</integer>
-				<key>queuedelayimmediatelyinitially</key>
-				<true/>
-				<key>queuedelaymode</key>
-				<integer>2</integer>
-				<key>queuemode</key>
-				<integer>1</integer>
-				<key>runningsubtext</key>
-				<string>The connection to Jira might take some seconds...</string>
-				<key>script</key>
-				<string>python jira-setup.py --setup true {query}</string>
-				<key>title</key>
-				<string>Show the JIRA Connection</string>
-				<key>type</key>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
 				<integer>0</integer>
-				<key>withspace</key>
-				<true/>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>text</key>
+				<string>{query}</string>
+				<key>title</key>
+				<string>Story URL copied to the clipboard</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.scriptfilter</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>85673819-F846-4EB1-A0C2-8023C61C3B64</string>
+			<string>D8B6EE55-6731-4F28-90DF-4F159327886C</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -341,6 +341,25 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>setupjirasprintboard</string>
+				<key>text</key>
+				<string>Set Jira Sprint Board Id</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>11212BC1-6981-4342-8C29-E8904A109D19</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -361,18 +380,69 @@
 			<key>config</key>
 			<dict>
 				<key>argumenttype</key>
-				<integer>0</integer>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
 				<key>keyword</key>
-				<string>setupjirasprintboard</string>
-				<key>text</key>
-				<string>Set Jira Sprint Board Id</string>
+				<string>setupjiratest</string>
+				<key>queuedelaycustom</key>
+				<integer>5</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>2</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>The connection to Jira might take some seconds...</string>
+				<key>script</key>
+				<string>python jira-setup.py --setup true {query}</string>
+				<key>title</key>
+				<string>Show the JIRA Connection</string>
+				<key>type</key>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>11212BC1-6981-4342-8C29-E8904A109D19</string>
+			<string>85673819-F846-4EB1-A0C2-8023C61C3B64</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>1</integer>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>keyword</key>
+				<string>jira2</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<false/>
+				<key>queuedelaymode</key>
+				<integer>2</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Please wait...</string>
+				<key>script</key>
+				<string>python jira2.py {query}</string>
+				<key>title</key>
+				<string>List Jira Stories</string>
+				<key>type</key>
+				<integer>0</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>08B651DF-8091-4007-9BC9-77FB79F54FC3</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -385,6 +455,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>340</real>
+		</dict>
+		<key>08B651DF-8091-4007-9BC9-77FB79F54FC3</key>
+		<dict>
+			<key>ypos</key>
+			<real>870</real>
 		</dict>
 		<key>0A7F94DA-8824-4BEA-892C-25D9882A4143</key>
 		<dict>
@@ -409,7 +484,7 @@
 		<key>85673819-F846-4EB1-A0C2-8023C61C3B64</key>
 		<dict>
 			<key>ypos</key>
-			<real>110</real>
+			<real>750</real>
 		</dict>
 		<key>97695483-49DA-40DB-B647-9F3EF1F899AB</key>
 		<dict>
@@ -435,6 +510,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>340</real>
+		</dict>
+		<key>D8B6EE55-6731-4F28-90DF-4F159327886C</key>
+		<dict>
+			<key>ypos</key>
+			<real>130</real>
 		</dict>
 		<key>F72709E4-C0D4-44B7-9E39-098F81B157C9</key>
 		<dict>
