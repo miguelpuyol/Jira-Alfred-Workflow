@@ -41,11 +41,15 @@ Type `jira` on Alfred to list the
 - [x] Search by name
 - [x] Search by Key
 
+## v0.4
+- [ ] Store your user and password in the Keychain via the workflow
+- [ ] Select the Board from Alfred and not with an ID
+
 ## Roadmap
 - [ ] Provide screenshots of the usage
 - [ ] Cache jira issues and avoid hammering JIRA
-- [ ] Select the Board from Alfred and not with an ID
 - [ ] Refactor the setup method to avoid code duplication
 - [ ] Add a comment to a story/subtask
+- [ ] Add a comment to a story/subtask with data from the clipboard
 - [ ] Create a story
 - [ ] Create a subtask 
