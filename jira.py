@@ -29,19 +29,22 @@ def list_incomplete_stories(query):
     # incompleted_stories = wf.cached_data('stories', get_incompleted_stories, max_age=60)
 
     incompleted_stories = get_incompleted_stories()
-    if query:
-        incompleted_stories=wf.filter(query, incompleted_stories, key=search_key_for_issue)
+    if not incompleted_stories:
+        wf.add_item(title=u'No sprint found!', subtitle=u'Create a new sprint or select another Board')
+    else:
+        if query:
+            incompleted_stories=wf.filter(query, incompleted_stories, key=search_key_for_issue)
 
-    for story in incompleted_stories:
-        if story.key:
-            log.info(story.key)
-            full_story = get_issue(story.key)
-            title = ' - '.join([story.key, story.fields.summary])
-            subtitle = ' - '.join([story.fields.priority.name, story.fields.status.name])
-            wf.add_item(title=title, subtitle=subtitle, arg=story.permalink(),
-                        autocomplete='--story ' + story.key + ' ',
-                        largetext=full_story.fields.description, copytext=story.key)
-            wf.store_data('key', story.key)
+        for story in incompleted_stories:
+            if story.key:
+                log.info(story.key)
+                full_story = get_issue(story.key)
+                title = ' - '.join([story.key, story.fields.summary])
+                subtitle = ' - '.join([story.fields.priority.name, story.fields.status.name])
+                wf.add_item(title=title, subtitle=subtitle, arg=story.permalink(),
+                            autocomplete='--story ' + story.key + ' ',
+                            largetext=full_story.fields.description, copytext=story.key)
+                wf.store_data('key', story.key)
 
 
 
@@ -54,13 +57,20 @@ def get_sprints(latest_first=True):
 
 
 def get_current_sprint():
-    return get_sprints()[0]
+    sprints = get_sprints()
+    if sprints and len(sprints) > 0:
+        return sprints[0]
+
+    return None
 
 
 def get_incompleted_stories():
     current_sprint = get_current_sprint()
-    log.info('Getting the incompleted stories for Sprint: ' + current_sprint.name)
-    return [jira.issue(x.key) for x in jira.incompleted_issues(board_id, current_sprint.id)]
+    if current_sprint:
+        log.info('Getting the incompleted stories for Sprint: ' + current_sprint.name)
+        return [jira.issue(x.key) for x in jira.incompleted_issues(board_id, current_sprint.id)]
+
+    return None
 
 
 def setup():
