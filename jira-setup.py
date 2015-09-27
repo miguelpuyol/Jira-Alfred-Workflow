@@ -2,10 +2,10 @@
 # encoding: utf-8
 
 import sys
-
 import argparse
+
 from workflow import Workflow
-from jira import JIRA
+from lib.jira import JIRA
 
 log = None
 jira = None
@@ -70,7 +70,7 @@ def main(wf):
             wf.save_password(username, args.password, service)
             return 0
         else:
-            log.info('Error: User not set. The password was not stored')
+            log.error('Error: User not set. The password was not stored')
 
     if args.sprint_board:
         log.info('Setting the sprint board id')
