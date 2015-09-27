@@ -1,12 +1,5 @@
 # Jira Workflow for Alfred
 
-# Prerequisites
-
-Install jira-python package
-
-```
-$ pip install jira
-```
 
 # Download
 
