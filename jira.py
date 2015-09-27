@@ -1,11 +1,10 @@
 #!/usr/bin/python
 # encoding: utf-8
 import argparse
-
 import sys
 
 from workflow import Workflow
-from jira import JIRA
+from lib.jira import JIRA
 
 log = None
 jira = None
@@ -183,6 +182,13 @@ def search_key_for_issue(issue):
         elements.append(issue.fields.description)  # description
     return u' '.join(elements)
 
+
+def list_boards(query=None):
+    boards = jira.dashboards(filter=query, startAt=0, maxResults=8)
+    for board in boards:
+        wf.add_item(title=board.name, subtitle=board.id)
+    # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
+
 def main(wf):
     log.info(wf.args)
 
@@ -193,6 +199,8 @@ def main(wf):
     parser.add_argument('--comments', dest='comments', nargs='?', default=None)
     parser.add_argument('--comments_sub', dest='comments_sub', nargs='?', default=None)
     parser.add_argument('--add_subtasks', dest='add_subtask', nargs='?', default=None)
+    parser.add_argument('--boards',  dest='boards', nargs='?', default=None)
+
     # parser.add_argument('--save', dest='save_subtask', nargs='?', default=None)
     parser.add_argument('query', nargs='?', default=None)
 
@@ -215,6 +223,9 @@ def main(wf):
 
     elif args.add_subtask:
         show_subtask_options(args.add_subtask, args.title)
+
+    elif args.boards:
+        list_boards("favourite")
 
     # elif args.save_subtask:
     #     create_subtask(wf.stored_data('key'), wf.stored_data('subtask_title'))
