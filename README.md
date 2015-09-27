@@ -16,9 +16,9 @@ Type `jira` on Alfred to list the
 | `jira`                 | Show the Jira options |
 | `setupjiraserver`      | Set the jira server            |
 | `setupjirauser`        | Set the jira username          |
-| `setupjirapassword`    | Saves the password in your keychain |
-| `setupjirasprintboard` | Set the Greenhopper Board Id |
-| `setupjiratest`        | Test the connection|
+| `setupjirapassword`    | Save the password in your keychain |
+| `setupjirasprintboard` | Browse and sets the Greenhopper Board. |
+| `setupjiratest`        | Test the connection |
 
 # TODO
 
@@ -36,7 +36,7 @@ Type `jira` on Alfred to list the
 
 ## v0.4
 - [x] Store your user and password in the Keychain via the workflow
-- [ ] Select the Board from Alfred and not with an ID
+- [x] Select the Board from Alfred and not by ID
 
 ## Roadmap
 - [ ] Provide screenshots of the usage

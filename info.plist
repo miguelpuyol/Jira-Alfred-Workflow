@@ -46,17 +46,6 @@
 				<string></string>
 			</dict>
 		</array>
-		<key>11212BC1-6981-4342-8C29-E8904A109D19</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>C2266E6A-451D-4E5F-B80C-8ED8597DD496</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-			</dict>
-		</array>
 		<key>9640A2D9-6F33-41A4-A925-99BC4F37ECF6</key>
 		<array>
 			<dict>
@@ -73,6 +62,25 @@
 			<dict>
 				<key>destinationuid</key>
 				<string>0A7F94DA-8824-4BEA-892C-25D9882A4143</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
+		<key>A4CC0D7C-C60C-4C6B-AD9D-02AD31490AA1</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>241A9D84-17E3-4924-A242-CAAE1377ED22</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+			<dict>
+				<key>destinationuid</key>
+				<string>C2266E6A-451D-4E5F-B80C-8ED8597DD496</string>
 				<key>modifiers</key>
 				<integer>0</integer>
 				<key>modifiersubtext</key>
@@ -363,19 +371,23 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
+				<key>lastpathcomponent</key>
 				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>python jira-setup.py --sprint_board {query}</string>
-				<key>type</key>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>output</key>
 				<integer>0</integer>
+				<key>removeextension</key>
+				<false/>
+				<key>sticky</key>
+				<false/>
+				<key>title</key>
+				<string>New Board Id {query}</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.action.script</string>
+			<string>alfred.workflow.output.notification</string>
 			<key>uid</key>
-			<string>C2266E6A-451D-4E5F-B80C-8ED8597DD496</string>
+			<string>241A9D84-17E3-4924-A242-CAAE1377ED22</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -384,17 +396,52 @@
 			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
+				<key>escaping</key>
+				<integer>102</integer>
 				<key>keyword</key>
 				<string>setupjirasprintboard</string>
-				<key>text</key>
-				<string>Set Jira Sprint Board Id</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>1</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string>Loading Boards</string>
+				<key>script</key>
+				<string>/usr/bin/python jira.py --boards {query}</string>
+				<key>title</key>
+				<string>Search for a Greenhopper Board</string>
+				<key>type</key>
+				<integer>0</integer>
 				<key>withspace</key>
 				<true/>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
+			<string>alfred.workflow.input.scriptfilter</string>
 			<key>uid</key>
-			<string>11212BC1-6981-4342-8C29-E8904A109D19</string>
+			<string>A4CC0D7C-C60C-4C6B-AD9D-02AD31490AA1</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>/usr/bin/python jira-setup.py --sprint_board {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>C2266E6A-451D-4E5F-B80C-8ED8597DD496</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -448,10 +495,10 @@
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
-		<key>11212BC1-6981-4342-8C29-E8904A109D19</key>
+		<key>241A9D84-17E3-4924-A242-CAAE1377ED22</key>
 		<dict>
 			<key>ypos</key>
-			<real>620</real>
+			<real>540</real>
 		</dict>
 		<key>4DFCBBB3-5826-4D36-87F4-F1DA25C798E4</key>
 		<dict>
@@ -478,6 +525,11 @@
 			<key>ypos</key>
 			<real>10</real>
 		</dict>
+		<key>A4CC0D7C-C60C-4C6B-AD9D-02AD31490AA1</key>
+		<dict>
+			<key>ypos</key>
+			<real>620</real>
+		</dict>
 		<key>B850386E-3897-404D-8897-52095786854F</key>
 		<dict>
 			<key>ypos</key>
@@ -491,7 +543,7 @@
 		<key>C2266E6A-451D-4E5F-B80C-8ED8597DD496</key>
 		<dict>
 			<key>ypos</key>
-			<real>620</real>
+			<real>700</real>
 		</dict>
 		<key>CAC1DCDF-268B-46B6-8FBC-7FA380B076D6</key>
 		<dict>

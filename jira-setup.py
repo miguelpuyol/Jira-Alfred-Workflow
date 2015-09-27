@@ -8,7 +8,6 @@ from workflow import Workflow
 from lib.jira import JIRA
 
 log = None
-jira = None
 
 
 def setup(wf):
@@ -73,7 +72,7 @@ def main(wf):
             log.error('Error: User not set. The password was not stored')
 
     if args.sprint_board:
-        log.info('Setting the sprint board id')
+        log.info('Setting a new sprint board id: {0}'.format(args.sprint_board))
         wf.settings['sprint_board'] = args.sprint_board
         return 0
 
@@ -118,5 +117,4 @@ def main(wf):
 if __name__ == '__main__':
     wf = Workflow()
     log = wf.logger
-    # jira = setup(wf)
     sys.exit(wf.run(main))

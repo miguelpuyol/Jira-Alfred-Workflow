@@ -32,7 +32,7 @@ def list_incomplete_stories(query):
         wf.add_item(title=u'No sprint found!', subtitle=u'Create a new sprint or select another Board')
     else:
         if query:
-            incompleted_stories=wf.filter(query, incompleted_stories, key=search_key_for_issue)
+            incompleted_stories = wf.filter(query, incompleted_stories, key=search_key_for_issue)
 
         for story in incompleted_stories:
             if story.key:
@@ -77,17 +77,17 @@ def setup():
     keychain = wf.settings.get('keychain', None)
     server = wf.settings.get('server', None)
 
-    if username and keychain and server and board_id:
+    if username and keychain and server:
         password = wf.get_password(account=username, service=keychain)
         auth = (username, password)
         return JIRA(server=server, basic_auth=auth)
     else:
         if board_id and int(board_id):
             wf.add_item(title=u'Error connecting to the Jira Server', subtitle=u'Please check the connections details')
-            wf.send_feedback()
         else:
-            wf.add_item(title=u'Please setup a valid Board Id', subtitle='Board Id: ' + board_id + ' is not valid')
-            wf.send_feedback()
+            wf.add_item(title=u'Please setup a valid Board')
+
+        wf.send_feedback()
     return None
 
 
@@ -101,10 +101,10 @@ def list_subtasks(story_key):
             subtitle = ' - '.join([subtask.fields.priority.name, subtask.fields.status.name])
             wf.add_item(title=title, subtitle=subtitle, arg=subtask.permalink(),
                         largetext=subtask.fields.summary, copytext=subtask.key,
-                        autocomplete='--subtask ' + subtask.key)
+                        autocomplete=u'--subtask ' + subtask.key)
     else:
         wf.add_item(title=u'The story has no subtasks', subtitle=u'Click to create one (not yet)', valid=False)
-    wf.add_item(title=u'Go back', autocomplete='--story ' + story_key)
+    wf.add_item(title=u'Go back', autocomplete=u'--story ' + story_key)
 
 def _load_issue():
     story_key = wf.cached_data('story-key')
@@ -126,14 +126,14 @@ def show_story_options(story_key, is_subtask=False):
     if not is_subtask:
         wf.add_item(title=u'Browse Subtasks', subtitle=u'Show all the tasks of the story',
                     autocomplete='--subtasks ' + story_key + ' ')
-    wf.add_item(title='Status: ' + issue.fields.status.name, subtitle=issue.fields.status.description,
+    wf.add_item(title=u'Status: ' + issue.fields.status.name, subtitle=issue.fields.status.description,
                 largetext=issue.fields.status.name)
     if issue.fields.assignee:
-        wf.add_item(title='Assignee: ' + issue.fields.assignee.displayName, subtitle=issue.fields.assignee.name)
+        wf.add_item(title=u'Assignee: ' + issue.fields.assignee.displayName, subtitle=issue.fields.assignee.name)
 
     if issue.fields.comment and issue.fields.comment.total > 0:
-        wf.add_item(title=u'Browse comments ', subtitle='Total Comments: ' + str(issue.fields.comment.total),
-                    autocomplete='--comments ' + story_key + ' ')
+        wf.add_item(title=u'Browse comments ', subtitle=u'Total Comments: ' + str(issue.fields.comment.total),
+                    autocomplete=u'--comments ' + story_key + ' ')
     if not is_subtask:
         wf.add_item(title=u'Go back', autocomplete=u'')
     else:
@@ -141,7 +141,7 @@ def show_story_options(story_key, is_subtask=False):
 
 
 def show_subtask_options(story_key, title):
-    wf.add_item(title='Creating Subtask For: ' + story_key, subtitle=title)
+    wf.add_item(title=u'Creating Subtask For: ' + story_key, subtitle=title)
     wf.store_data('subtask_title', title)
     wf.add_item(title=u'Save it!', subtitle=title, autocomplete=u'--save')
 
@@ -174,19 +174,25 @@ def list_story_comments(story_key, is_subtask=False):
 
 def search_key_for_issue(issue):
     """Generate a string search key for a story or subtasks"""
-    elements = []
-    elements.append(issue.key)
+    elements = [issue.key]
     if issue.fields.summary:
         elements.append(issue.fields.summary)
     if issue.fields.description:
         elements.append(issue.fields.description)  # description
     return u' '.join(elements)
 
+def search_key_for_board(board):
+    """Generate a string search key for a story or subtasks"""
+    elements = [str(board.id)]
+    if board.name:
+        elements.append(board.name)
+    return u' '.join(elements)
 
 def list_boards(query=None):
-    boards = jira.dashboards(filter=query, startAt=0, maxResults=8)
-    for board in boards:
-        wf.add_item(title=board.name, subtitle=board.id)
+    boards = jira.boards()
+    for board in wf.filter(query, boards, max_results=7, key=search_key_for_board):
+        wf.add_item(title=board.name, subtitle=u'Board Id: {0}'.format(board.id), valid=True,
+                    arg=unicode(board.id))
     # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
 
 def main(wf):
@@ -225,7 +231,7 @@ def main(wf):
         show_subtask_options(args.add_subtask, args.title)
 
     elif args.boards:
-        list_boards("favourite")
+        list_boards(args.boards)
 
     # elif args.save_subtask:
     #     create_subtask(wf.stored_data('key'), wf.stored_data('subtask_title'))
