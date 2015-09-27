@@ -23,7 +23,7 @@ Type `jira` on Alfred to list the
 | `jira`                 | Show the Jira options |
 | `setupjiraserver`      | Set the jira server            |
 | `setupjirauser`        | Set the jira username          |
-| `setupjirakeychain`    | Set the Apple Keychain service where your JIRA password is stored |
+| `setupjirapassword`    | Saves the password in your keychain |
 | `setupjirasprintboard` | Set the Greenhopper Board Id |
 | `setupjiratest`        | Test the connection|
 
@@ -42,7 +42,7 @@ Type `jira` on Alfred to list the
 - [x] Search by Key
 
 ## v0.4
-- [ ] Store your user and password in the Keychain via the workflow
+- [x] Store your user and password in the Keychain via the workflow
 - [ ] Select the Board from Alfred and not with an ID
 
 ## Roadmap

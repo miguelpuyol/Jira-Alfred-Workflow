@@ -42,7 +42,7 @@ def main(wf):
     parser = argparse.ArgumentParser()
     parser.add_argument('--server', dest='server', nargs='?', default=None)
     parser.add_argument('--user', dest='user', nargs='?', default=None)
-    parser.add_argument('--keychain', dest='keychain', nargs='?', default=None)
+    parser.add_argument('--password', dest='password', nargs='?', default=None)
     parser.add_argument('--setup', dest='setup', nargs='?', default=None)
     parser.add_argument('--sprint_board', dest='sprint_board', nargs='?', default=None)
     # parser.add_argument('--test', dest='test', nargs='?', default=None)
@@ -61,10 +61,16 @@ def main(wf):
         wf.settings['user'] = args.user
         return 0
 
-    if args.keychain:
-        log.info('Setting the keychain account')
-        wf.settings['keychain'] = args.keychain
-        return 0
+    if args.password:
+        username = wf.settings.get('user', None)
+        if username:
+            log.info('Setting the password')
+            service = 'jira@alfred'
+            wf.settings['keychain'] = service
+            wf.save_password(username, args.password, service)
+            return 0
+        else:
+            log.info('Error: User not set. The password was not stored')
 
     if args.sprint_board:
         log.info('Setting the sprint board id')
@@ -102,11 +108,6 @@ def main(wf):
             wf.add_item(title='Server: ' + server)
         # else:
         #     wf.add_item(title='No server defined', subtitle='Press enter to setup one', autocomplete='--server')
-
-        if keychain:
-            wf.add_item(title='Keychain: ' + keychain)
-        # else:
-        #     wf.add_item(title='No keychain defined', subtitle='Press enter to setup one', autocomplete='--keychain')
 
         if sprint_board:
             wf.add_item(title='Sprint Board Id: ' + sprint_board)

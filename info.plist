@@ -57,6 +57,17 @@
 				<string></string>
 			</dict>
 		</array>
+		<key>9640A2D9-6F33-41A4-A925-99BC4F37ECF6</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>0A7F94DA-8824-4BEA-892C-25D9882A4143</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+			</dict>
+		</array>
 		<key>97695483-49DA-40DB-B647-9F3EF1F899AB</key>
 		<array>
 			<dict>
@@ -104,29 +115,17 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>action</key>
-				<integer>0</integer>
-				<key>argument</key>
-				<integer>0</integer>
-				<key>hotkey</key>
-				<integer>38</integer>
-				<key>hotmod</key>
-				<integer>524288</integer>
-				<key>hotstring</key>
-				<string>J</string>
-				<key>leftcursor</key>
-				<false/>
-				<key>modsmode</key>
-				<integer>0</integer>
-				<key>relatedAppsMode</key>
-				<integer>0</integer>
+				<key>autopaste</key>
+				<true/>
+				<key>clipboardtext</key>
+				<string>{query}</string>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.trigger.hotkey</string>
+			<string>alfred.workflow.output.clipboard</string>
 			<key>uid</key>
-			<string>97695483-49DA-40DB-B647-9F3EF1F899AB</string>
+			<string>BA15956B-1364-425F-9AA4-34F8A6ECA094</string>
 			<key>version</key>
-			<integer>1</integer>
+			<integer>0</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -166,17 +165,29 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>autopaste</key>
-				<true/>
-				<key>clipboardtext</key>
-				<string>{query}</string>
+				<key>action</key>
+				<integer>0</integer>
+				<key>argument</key>
+				<integer>0</integer>
+				<key>hotkey</key>
+				<integer>38</integer>
+				<key>hotmod</key>
+				<integer>524288</integer>
+				<key>hotstring</key>
+				<string>J</string>
+				<key>leftcursor</key>
+				<false/>
+				<key>modsmode</key>
+				<integer>0</integer>
+				<key>relatedAppsMode</key>
+				<integer>0</integer>
 			</dict>
 			<key>type</key>
-			<string>alfred.workflow.output.clipboard</string>
+			<string>alfred.workflow.trigger.hotkey</string>
 			<key>uid</key>
-			<string>BA15956B-1364-425F-9AA4-34F8A6ECA094</string>
+			<string>97695483-49DA-40DB-B647-9F3EF1F899AB</string>
 			<key>version</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -223,6 +234,19 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>triggerid</key>
+				<string>jira</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.trigger.external</string>
+			<key>uid</key>
+			<string>9640A2D9-6F33-41A4-A925-99BC4F37ECF6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -261,25 +285,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>python jira-setup.py --user {query}</string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>CAC1DCDF-268B-46B6-8FBC-7FA380B076D6</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
@@ -304,7 +309,26 @@
 				<key>escaping</key>
 				<integer>102</integer>
 				<key>script</key>
-				<string>python jira-setup.py --keychain {query}</string>
+				<string>python jira-setup.py --user {query}</string>
+				<key>type</key>
+				<integer>0</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CAC1DCDF-268B-46B6-8FBC-7FA380B076D6</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>102</integer>
+				<key>script</key>
+				<string>python jira-setup.py --password {query}</string>
 				<key>type</key>
 				<integer>0</integer>
 			</dict>
@@ -321,11 +345,11 @@
 				<key>argumenttype</key>
 				<integer>0</integer>
 				<key>keyword</key>
-				<string>setupjirakeychain</string>
+				<string>setupjirapassword</string>
 				<key>subtext</key>
-				<string>Indicate where your jira password is stored</string>
+				<string>It will be safely stored in your Keychain</string>
 				<key>text</key>
-				<string>Set Jira Keychain account</string>
+				<string>Set Jira Password</string>
 				<key>withspace</key>
 				<true/>
 			</dict>
@@ -333,25 +357,6 @@
 			<string>alfred.workflow.input.keyword</string>
 			<key>uid</key>
 			<string>B850386E-3897-404D-8897-52095786854F</string>
-			<key>version</key>
-			<integer>0</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>argumenttype</key>
-				<integer>0</integer>
-				<key>keyword</key>
-				<string>setupjirasprintboard</string>
-				<key>text</key>
-				<string>Set Jira Sprint Board Id</string>
-				<key>withspace</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.input.keyword</string>
-			<key>uid</key>
-			<string>11212BC1-6981-4342-8C29-E8904A109D19</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -371,6 +376,25 @@
 			<string>alfred.workflow.action.script</string>
 			<key>uid</key>
 			<string>C2266E6A-451D-4E5F-B80C-8ED8597DD496</string>
+			<key>version</key>
+			<integer>0</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>keyword</key>
+				<string>setupjirasprintboard</string>
+				<key>text</key>
+				<string>Set Jira Sprint Board Id</string>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.keyword</string>
+			<key>uid</key>
+			<string>11212BC1-6981-4342-8C29-E8904A109D19</string>
 			<key>version</key>
 			<integer>0</integer>
 		</dict>
@@ -443,6 +467,11 @@
 		<dict>
 			<key>ypos</key>
 			<real>750</real>
+		</dict>
+		<key>9640A2D9-6F33-41A4-A925-99BC4F37ECF6</key>
+		<dict>
+			<key>ypos</key>
+			<real>140</real>
 		</dict>
 		<key>97695483-49DA-40DB-B647-9F3EF1F899AB</key>
 		<dict>
