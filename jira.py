@@ -4,7 +4,7 @@ import argparse
 import sys
 
 from workflow import Workflow
-from lib.jira import JIRA
+from JiraWorkflow import JiraWorkflow, JiraWorkflowException
 
 log = None
 jira = None
@@ -48,7 +48,7 @@ def list_incomplete_stories(query):
 
 def get_sprints(latest_first=True):
     log.info('Retrieving the sprints from JIRA')
-    sprints = jira.sprints(board_id)
+    sprints = jira.client.sprints(board_id)
     sprints = sorted((sprint for sprint in sprints if sprint.name.startswith("Sprint")),
                      key=lambda x: int(x.name.split(' ')[1]), reverse=latest_first)
     return sprints
@@ -66,26 +66,19 @@ def get_incompleted_stories():
     current_sprint = get_current_sprint()
     if current_sprint:
         log.info('Getting the incompleted stories for Sprint: ' + current_sprint.name)
-        return [jira.issue(x.key) for x in jira.incompleted_issues(board_id, current_sprint.id)]
+        return [jira.client.issue(x.key) for x in jira.client.incompleted_issues(board_id, current_sprint.id)]
 
     return None
 
 
 def setup():
-    username = wf.settings.get('user', None)
-    keychain = wf.settings.get('keychain', None)
-    server = wf.settings.get('server', None)
-
-    if username and keychain and server:
-        password = wf.get_password(account=username, service=keychain)
-        auth = (username, password)
-        return JIRA(server=server, basic_auth=auth)
-    else:
+    try:
+        return JiraWorkflow(wf)
+    except JiraWorkflowException as e:
         if board_id and int(board_id):
-            wf.add_item(title=u'Error connecting to the Jira Server', subtitle=u'Please check the connections details')
+            wf.add_item(title=e.args[0], subtitle=e.args[1])
         else:
             wf.add_item(title=u'Please setup a valid Board')
-
         wf.send_feedback()
     return None
 
@@ -108,7 +101,7 @@ def list_subtasks(story_key):
 
 def _load_issue():
     story_key = wf.cached_data('story-key')
-    return jira.issue(story_key)
+    return jira.client.issue(story_key)
 
 
 def get_issue(story_key):
@@ -154,7 +147,7 @@ def show_subtask_options(story_key, title):
 
 
 def create_subtask(parent_key, description):
-    log.info(' '.join('Creating subtask', description, u'for story', parent_key))
+    log.info(' '.join('Creating subtask', description, 'for story', parent_key))
     parent_story = get_issue(parent_key)
     subtask_fields = {
         'project': {'key': parent_story.fields.project.key},
@@ -164,7 +157,7 @@ def create_subtask(parent_key, description):
         'parent': {'id': parent_story.key},
     }
 
-    jira.create_issue(fields=subtask_fields)
+    jira.client.create_issue(fields=subtask_fields)
 
 
 def list_story_comments(story_key, is_subtask=False):
@@ -198,17 +191,17 @@ def search_key_for_board(board):
     return u' '.join(elements)
 
 
-def list_boards(query=None):
-    boards = jira.boards()
-    for board in wf.filter(query, boards, max_results=7, key=search_key_for_board):
-        wf.add_item(title=board.name, subtitle=u'Board Id: {0}'.format(board.id), valid=True,
-                    arg=unicode(board.id))
-        # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
+# def list_boards(query=None):
+#     boards = jira.client.boards()
+#     for board in wf.filter(query, boards, max_results=7, key=search_key_for_board):
+#         wf.add_item(title=board.name, subtitle=u'Board Id: {0}'.format(board.id), valid=True,
+#                     arg=unicode(board.id))
+#         # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
 
 
 def assign_to_me(issue):
     username = wf.settings.get('user', None)
-    jira.assign_issue(issue, username)
+    jira.client.assign_issue(issue, username)
 
 
 def main(wf):
@@ -248,7 +241,7 @@ def main(wf):
         show_subtask_options(args.add_subtask, args.title)
 
     elif args.boards:
-        list_boards(args.boards)
+        jira.list_boards(args.boards)
 
     elif args.assign:
         assign_to_me(args.assign)
@@ -264,7 +257,6 @@ def main(wf):
 
 if __name__ == '__main__':
     wf = Workflow()
-    # wf.cache_serializer = 'cpickle'
     log = wf.logger
     board_id = wf.settings.get('sprint_board', None)
     jira = setup()
