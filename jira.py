@@ -46,7 +46,6 @@ def list_incomplete_stories(query):
                 wf.store_data('key', story.key)
 
 
-
 def get_sprints(latest_first=True):
     log.info('Retrieving the sprints from JIRA')
     sprints = jira.sprints(board_id)
@@ -106,6 +105,7 @@ def list_subtasks(story_key):
         wf.add_item(title=u'The story has no subtasks', subtitle=u'Click to create one (not yet)', valid=False)
     wf.add_item(title=u'Go back', autocomplete=u'--story ' + story_key)
 
+
 def _load_issue():
     story_key = wf.cached_data('story-key')
     return jira.issue(story_key)
@@ -116,6 +116,7 @@ def get_issue(story_key):
     # story = wf.cached_data('story', _load_issue, max_age=30)
     # return story
     return _load_issue()
+
 
 def show_story_options(story_key, is_subtask=False):
     issue = get_issue(story_key)
@@ -130,6 +131,12 @@ def show_story_options(story_key, is_subtask=False):
                 largetext=issue.fields.status.name)
     if issue.fields.assignee:
         wf.add_item(title=u'Assignee: ' + issue.fields.assignee.displayName, subtitle=issue.fields.assignee.name)
+
+        wf.add_item(title=u'Assign to me', subtitle=u'Replace {0} with yourself'.format(issue.fields.assignee.name),
+                    autocomplete=u'--assign ' + story_key, valid=True)
+    else:
+        wf.add_item(title=u'Assign to me', subtitle=u'No person assigned yet',
+                    autocomplete=u'--assign ' + story_key + ' ', valid=True)
 
     if issue.fields.comment and issue.fields.comment.total > 0:
         wf.add_item(title=u'Browse comments ', subtitle=u'Total Comments: ' + str(issue.fields.comment.total),
@@ -172,6 +179,7 @@ def list_story_comments(story_key, is_subtask=False):
     else:
         wf.add_item(title=u'Go back', autocomplete=u'--story ' + story_key)
 
+
 def search_key_for_issue(issue):
     """Generate a string search key for a story or subtasks"""
     elements = [issue.key]
@@ -181,6 +189,7 @@ def search_key_for_issue(issue):
         elements.append(issue.fields.description)  # description
     return u' '.join(elements)
 
+
 def search_key_for_board(board):
     """Generate a string search key for a story or subtasks"""
     elements = [str(board.id)]
@@ -188,12 +197,19 @@ def search_key_for_board(board):
         elements.append(board.name)
     return u' '.join(elements)
 
+
 def list_boards(query=None):
     boards = jira.boards()
     for board in wf.filter(query, boards, max_results=7, key=search_key_for_board):
         wf.add_item(title=board.name, subtitle=u'Board Id: {0}'.format(board.id), valid=True,
                     arg=unicode(board.id))
-    # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
+        # wf.add_item(title='More', autocomplete=u'--boards '+ str(initial + 1))
+
+
+def assign_to_me(issue):
+    username = wf.settings.get('user', None)
+    jira.assign_issue(issue, username)
+
 
 def main(wf):
     log.info(wf.args)
@@ -205,7 +221,8 @@ def main(wf):
     parser.add_argument('--comments', dest='comments', nargs='?', default=None)
     parser.add_argument('--comments_sub', dest='comments_sub', nargs='?', default=None)
     parser.add_argument('--add_subtasks', dest='add_subtask', nargs='?', default=None)
-    parser.add_argument('--boards',  dest='boards', nargs='?', default=None)
+    parser.add_argument('--boards', dest='boards', nargs='?', default=None)
+    parser.add_argument('--assign', dest='assign', nargs='?', default=None)
 
     # parser.add_argument('--save', dest='save_subtask', nargs='?', default=None)
     parser.add_argument('query', nargs='?', default=None)
@@ -232,6 +249,9 @@ def main(wf):
 
     elif args.boards:
         list_boards(args.boards)
+
+    elif args.assign:
+        assign_to_me(args.assign)
 
     # elif args.save_subtask:
     #     create_subtask(wf.stored_data('key'), wf.stored_data('subtask_title'))

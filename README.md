@@ -38,7 +38,12 @@ Type `jira` on Alfred to list the
 - [x] Store your user and password in the Keychain via the workflow
 - [x] Select the Board from Alfred and not by ID
 
+## v0.4.1
+- [x] Issue Assign to me
+
 ## Roadmap
+- [ ] Add tests. Any kind (https://github.com/telefonicaid/lettuce-tools)
+- [ ] Run Jira loading in the background: (https://alfredworkflow.readthedocs.org/en/latest/user-manual/background.html)
 - [ ] Provide screenshots of the usage
 - [ ] Cache jira issues and avoid hammering JIRA
 - [ ] Refactor the setup method to avoid code duplication
