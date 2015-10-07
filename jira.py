@@ -49,7 +49,7 @@ def list_incomplete_stories(query):
 def get_sprints(latest_first=True):
     log.info('Retrieving the sprints from JIRA')
     sprints = jira.sprints(board_id)
-    sprints = sorted((sprint for sprint in sprints if sprint.name.startswith("Sprint")),
+    sprints = sorted((sprint for sprint in sprints if sprint.name.startswith("Sprint ")),
                      key=lambda x: int(x.name.split(' ')[1]), reverse=latest_first)
     return sprints
 
