@@ -5,9 +5,13 @@
 
 Download the workflow file [Jira Task Manager](Jira%20Task%20Manager.alfredworkflow)
 
+# Prerequisites
+
+Requires [requests](https://pypi.python.org/pypi/requests). Installation: [http://stackoverflow.com/a/17309309]
+
 # Usage
 
-Type `jira` on Alfred to list the 
+Type `jira` on Alfred to list the
 
 # Setup
 
@@ -50,4 +54,4 @@ Type `jira` on Alfred to list the
 - [ ] Add a comment to a story/subtask
 - [ ] Add a comment to a story/subtask with data from the clipboard
 - [ ] Create a story
-- [ ] Create a subtask 
+- [ ] Create a subtask
